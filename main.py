@@ -1,24 +1,7 @@
-# これはサンプルの Python スクリプトです。
+from flask import Flask
 
-# Shift+F10 を押して実行するか、ご自身のコードに置き換えてください。
-# Shift を2回押す を押すと、クラス/ファイル/ツールウィンドウ/アクション/設定を検索します。
+app = Flask(__name__)
 
-
-def print_hi(name):
-    # スクリプトをデバッグするには以下のコード行でブレークポイントを使用してください。
-    print(f'Hi, {name}')  # Ctrl+F8を押すとブレークポイントを切り替えます。
-
-
-# ガター内の緑色のボタンを押すとスクリプトを実行します。
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# PyCharm のヘルプは https://www.jetbrains.com/help/pycharm/ を参照してください
-print("konnitiha")
-print("konnitiha")
-print("konnitiha")
-print("hello ogawa")
-print("aaaaaaaaaaaaaaaaaaa")
-print("hello ogawa")
-print("hello ogawa")
-print("hello ogawa")
+@app.route("/")
+def hello_world():
+    return "<p>Hello, World!</p>"
