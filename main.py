@@ -16,3 +16,4 @@ if __name__ == '__main__':
 # PyCharm のヘルプは https://www.jetbrains.com/help/pycharm/ を参照してください
 print("konnitiha")
 print("konnitiha")
+print("konnitiha")
