@@ -1,5 +1,8 @@
 # deadline calender \(コードネーム\)
 
+* [endpoint](./docs/endpoint.md)
+* [object](./docs/object.md)
+
 * 宿題の計画を立ててくれる
 * 好みのやり方に合わせて立ててくれる
 * 携帯を使えなくする
