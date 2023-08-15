@@ -1,11 +1,12 @@
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
 import WebpackRemoveEmptyScriptsPlugin from "webpack-remove-empty-scripts";
+import * as path from "path";
 
 module.exports = {
     // 入力ファイル設定
     entry: {
-        index: './ts/index.tsx',
+        common: './ts/common.tsx',
         style: './css/style.scss',
     },
     devtool: 'source-map',
@@ -40,12 +41,12 @@ module.exports = {
     // モジュール設定
     output: {
         path: __dirname,
-        filename: './src/main/resources/static/built/[name].js'
+        filename: './public/built/[name].js'
     },
 
     plugins: [
         new MiniCssExtractPlugin({
-            filename: './src/main/resources/static/built/[name].css'
+            filename: './public/built/[name].css'
         }),
         new WebpackRemoveEmptyScriptsPlugin({}),
     ],
@@ -53,5 +54,13 @@ module.exports = {
     // モジュール解決
     resolve: {
         extensions: [".ts", ".tsx", ".js", ".json"]
+    },
+    devServer: {
+        static: {
+            directory: path.join(__dirname, 'public'),
+        },
+        compress: true,
+        port: 9000,
+        proxy: {"/api": "http://127.0.0.1:5000/api"}
     },
 };
