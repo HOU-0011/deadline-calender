@@ -1,6 +1,6 @@
 from sqlalchemy import Integer, String
 
-from test import db
+from dedline import db
 
 
 class BaseModel:

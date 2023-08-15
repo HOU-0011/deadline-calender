@@ -1,8 +1,8 @@
 from flask import jsonify
 from sqlalchemy import select
 
-from test import app, db
-from test.model import Content
+from dedline import app, db
+from dedline.model import Content
 
 
 @app.route("/")
@@ -21,7 +21,7 @@ def contents():
 
 @app.route("/contents/test")
 def contents_test():
-    content = Content("test aaaaa")
+    content = Content("dedline aaaaa")
     db.session.add(content)
     db.session.commit()
     return jsonify(content.to_dict())
