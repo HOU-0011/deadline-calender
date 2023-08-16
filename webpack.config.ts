@@ -59,8 +59,12 @@ module.exports = {
         static: {
             directory: path.join(__dirname, 'public'),
         },
-        compress: true,
         port: 9000,
-        proxy: {"/api": "http://127.0.0.1:5000/api"}
+        proxy: {
+            "/api": {
+                target: 'http://127.0.0.1:5000',
+                pathRewrite: {'/api': ''},
+            }
+        }
     },
 };
