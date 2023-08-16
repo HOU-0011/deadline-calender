@@ -1,0 +1,7 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="develop" type="CompoundRunConfigurationType">
+    <toRun name="webpack server" type="js.build_tools.npm" />
+    <toRun name="flusk server" type="PythonConfigurationType" />
+    <method v="2" />
+  </configuration>
+</component>

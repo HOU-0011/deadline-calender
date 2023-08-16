@@ -5,7 +5,7 @@
 
 ***
 
-## GET /task?name=name
+## GET /api/task?name=name
 
 * 登録されているタスクの一覧を表示
 
@@ -23,7 +23,7 @@ response
 
 ***
 
-## POST /task
+## POST /api/task
 
 * 新しいタスクの登録
 
@@ -35,7 +35,7 @@ Task
 
 ***
 
-## DELETE /task/{id}
+## DELETE /api/task/{id}
 
 * 指定した日のタスクを削除する
 
@@ -51,7 +51,7 @@ Task
 
 ***
 
-## PUT /task/{id}
+## PUT /api/task/{id}
 
 * 指定した日のタスクを編集する
 
@@ -67,7 +67,7 @@ Task
 
 ***
 
-## GET /task/{date}
+## GET /api/task/{date}
 
 * 指定した日のタスクを表示する
 
@@ -83,7 +83,7 @@ Task
 
 ***
 
-## GET /day-off
+## GET /api/day-off
 
 * 休みの日を取得します
 
@@ -97,7 +97,7 @@ response
 
 ***
 
-## POST /day-off
+## POST /api/day-off
 
 * 新しい休日の登録
 
@@ -109,7 +109,7 @@ DayOff
 
 ***
 
-## DELETE /day-off/{id}
+## DELETE /api/day-off/{id}
 
 * 指定した日の休日を削除する
 
