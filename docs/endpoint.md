@@ -41,12 +41,31 @@ Task
 
 | path パラメータ | 内容 |
 |------------|----|
-| date       | 日付 | 
+| id         | id | 
 
 response
+
 ```json
 Task
 ```
+
+***
+
+## PUT /task/{id}
+
+* 指定した日のタスクを編集する
+
+| path パラメータ | 内容 |
+|------------|----|
+| id         | id | 
+
+response
+
+```json
+Task
+```
+
+***
 
 ## GET /task/{date}
 
@@ -57,9 +76,11 @@ Task
 | date       | 日付 | 
 
 response
+
 ```json
 Task
 ```
+
 ***
 
 ## GET /day-off
@@ -97,6 +118,7 @@ DayOff
 | date       | 日付 | 
 
 response
+
 ```json
 Task
 ```
