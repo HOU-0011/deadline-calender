@@ -31,9 +31,11 @@ export function ThemeProvider(props: any) {
     }, [theme])
 
     return <ThemeContext.Provider value={nonNullTheme}>
-        <div style={{
-            color: nonNullTheme.textBase, backgroundColor: nonNullTheme.base,
-            fontFamily: font
+        <div css={{
+            color: nonNullTheme.textBase,
+            backgroundColor: nonNullTheme.base,
+            fontFamily: font,
+            minHeight: "100vh"
         }}>
             {props.children}
         </div>
