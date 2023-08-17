@@ -40,13 +40,13 @@ module.exports = {
 
     // モジュール設定
     output: {
-        path: __dirname,
-        filename: './public/built/[name].js'
+        path: path.join(__dirname, 'public'),
+        filename: './built/[name].js',
     },
 
     plugins: [
         new MiniCssExtractPlugin({
-            filename: './public/built/[name].css'
+            filename: './built/[name].css'
         }),
         new WebpackRemoveEmptyScriptsPlugin({}),
     ],
@@ -65,6 +65,6 @@ module.exports = {
                 target: 'http://127.0.0.1:5000',
                 pathRewrite: {'/api': ''},
             }
-        }
+        },
     },
 };

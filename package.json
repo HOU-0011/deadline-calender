@@ -1,12 +1,12 @@
 {
-  "name": "test",
+  "name": "deadline-calender",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \\\\\\\"Error: no test specified\\\\\\\" && exit 1",
     "watch": "webpack --watch",
-    "server": "webpack serve"
+    "server": "webpack server"
   },
   "author": "",
   "license": "MIT",
