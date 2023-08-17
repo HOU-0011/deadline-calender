@@ -1,14 +1,14 @@
 import React, {Context, useContext, useEffect, useState} from "react";
-import {initTheme, Theme} from "./theme";
+import {initTheme, ThemeJson} from "./themeJson";
 
-let ThemeContext: Context<Theme> = React.createContext(initTheme())
-let setTheme: (theme: Theme) => void = () => {
+let ThemeContext: Context<ThemeJson> = React.createContext(initTheme())
+let themeSetter: (theme: ThemeJson) => void = () => {
 }
 
 export function ThemeProvider(props: any) {
     const [theme, setState] = useState(initTheme)
     const [font, setFont] = useState("")
-    setTheme = setState
+    themeSetter = setState
     const nonNullTheme = theme == undefined ? initTheme() : theme
 
     useEffect(() => {
@@ -40,6 +40,9 @@ export function ThemeProvider(props: any) {
     </ThemeContext.Provider>
 }
 
-export function useTheme(): Theme {
+export function useTheme(): ThemeJson {
     return useContext(ThemeContext)
+}
+export  function setTheme(theme:ThemeJson){
+    themeSetter(theme)
 }

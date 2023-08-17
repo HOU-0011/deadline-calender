@@ -1,10 +1,11 @@
 import ReactDOM from "react-dom";
 import {BrowserRouter} from "react-router-dom";
-import {css} from "@emotion/react";
+import {ThemeProvider} from "./hooks/theme/themeHook";
+import {Header} from "./component/root/header";
+import {Contents} from "./component/root/contents";
 
 
-
-export const siteName = "Chat Assistant"
+export const siteName = "deadline calender"
 
 function Bundle() {
     return <BrowserRouter>
