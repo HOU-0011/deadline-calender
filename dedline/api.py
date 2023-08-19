@@ -1,10 +1,10 @@
 import json
 
-from flask import jsonify, request
+from flask import request
 from sqlalchemy import select
 
 from dedline import app, db
-from dedline.model import Content, Task
+from dedline.model import Task
 from dedline.util import create_result
 
 
@@ -28,29 +28,11 @@ def get_task():
         result.append(task.to_dict())
     return create_result(result)
 
-@app.route("/api/day-off", methods=["GET"])
-def get_off()
 
-
+# @app.route("/api/day-off", methods=["GET"])
+# def get_off()
 
 
 @app.route("/")
 def hello_world():
     return "<p>Hello, World!</p>"
-
-
-@app.route("/contents")
-def contents():
-    result = list()
-    for content in db.session.execute(select(Content)).scalars():
-        result.append(content.to_dict())
-
-    return jsonify(result)
-
-
-@app.route("/contents/test")
-def contents_test():
-    content = Content("dedline aaaaa")
-    db.session.add(content)
-    db.session.commit()
-    return jsonify(content.to_dict())

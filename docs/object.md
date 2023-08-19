@@ -28,7 +28,7 @@
 {
   "id": 10000,
   "start_date": "2023/12/31",
-  "repetition": [
+  "repetitions": [
     "月",
     "火"
   ],
