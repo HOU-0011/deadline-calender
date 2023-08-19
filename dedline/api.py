@@ -3,7 +3,7 @@ import json
 from flask import request
 
 from dedline import app, db
-from dedline.model import Task
+from dedline.model import Task, DayOff
 from dedline.util import create_result
 
 
@@ -21,7 +21,7 @@ def post_task():
 
 
 @app.route("/api/task", methods=["GET"])
-def get_task():
+def get_task(name: str):
     result = list()
 
     name = request.args.get("name")
@@ -33,8 +33,25 @@ def get_task():
     return create_result(result)
 
 
-# @app.route("/api/day-off", methods=["GET"])
-# def get_off()
+@app.route("/api/day-off", methods=["POST"])
+def post_day_off():
+    data: str = request.data.decode("utf-8")
+    data: dict = json.loads(data)
+
+    day_off: DayOff = DayOff(data)
+
+    db.session.add(day_off)
+    db.session.commit()
+
+    return create_result()
+
+
+@app.route("/api/day-off", methods=["GET"])
+def get_off():
+    result = list()
+    for day_off in db.session.execute(select(DayOff).limit(20)).scalars():
+        result.append(day_off.to_dict())
+    return create_result(result)
 
 
 @app.route("/")
