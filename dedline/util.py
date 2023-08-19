@@ -1,3 +1,5 @@
+import enum
+
 from flask import jsonify, Response
 
 
@@ -7,3 +9,13 @@ def create_result(data: dict | list = None, error: bool = False, message: str = 
         "message": message,
         "result": data
     })
+
+
+class Week(enum.Enum):
+    SUNDAY = "sun",
+    MONDAY = "mon",
+    TUESDAY = "tue",
+    WEDNESDAY = "wed",
+    THURSDAY = "thu",
+    FRYDAY = "fry",
+    SATURDAY = "sat"
