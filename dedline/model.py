@@ -11,11 +11,11 @@ class BaseModel:
 
 
 class Task(BaseModel, db.Model):
-    id: int | None = db.Column(Integer, primary_key=True)
-    day_limit: datetime.date = db.Column(Date())
-    period: int = db.Column(Integer())
-    title: str = db.Column(String(31))
-    contents: str = db.Column(String(255))
+    id: int | sqlalchemy.Column = sqlalchemy.Column(Integer, primary_key=True)
+    day_limit: datetime.date | sqlalchemy.Column = db.Column(Date())
+    period: int | sqlalchemy.Column = sqlalchemy.Column(Integer())
+    title: str | sqlalchemy.Column = sqlalchemy.Column(String(31))
+    contents: str | sqlalchemy.Column = sqlalchemy.Column(String(255))
 
     def __init__(self, data: dict = None):
         if data is None:
@@ -37,9 +37,9 @@ class Task(BaseModel, db.Model):
 
 
 class DayOff(BaseModel, db.Model):
-    id: int | None = db.Column(Integer, primary_key=True)
-    start_date: datetime.date = db.Column(Date())
-    repetitions: list = sqlalchemy.Column(String(32))
+    id: int | sqlalchemy.Column = db.Column(Integer, primary_key=True)
+    start_date: datetime.date | sqlalchemy.Column = db.Column(Date())
+    repetitions: list | sqlalchemy.Column = sqlalchemy.Column(String(32))
 
     def __init__(self, data: dict = None):
         if data is None:
