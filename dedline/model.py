@@ -12,8 +12,8 @@ class BaseModel:
 
 class Task(BaseModel, db.Model):
     id: int | sqlalchemy.Column = sqlalchemy.Column(Integer, primary_key=True)
-    deleted: bool | sqlalchemy.Column = sqlalchemy.Column(sqlalchemy.Boolean)
-    day_limit: datetime.date | sqlalchemy.Column = db.Column(Date())
+    deleted: bool | sqlalchemy.Column = sqlalchemy.Column(sqlalchemy.Boolean, default=False)
+    day_limit: datetime.date | sqlalchemy.Column = sqlalchemy.Column(Date())
     period: int | sqlalchemy.Column = sqlalchemy.Column(Integer())
     title: str | sqlalchemy.Column = sqlalchemy.Column(String(31))
     contents: str | sqlalchemy.Column = sqlalchemy.Column(String(255))
@@ -41,7 +41,7 @@ class Task(BaseModel, db.Model):
 
 class DayOff(BaseModel, db.Model):
     id: int | sqlalchemy.Column = db.Column(Integer, primary_key=True)
-    deleted: bool | sqlalchemy.Column = sqlalchemy.Column(sqlalchemy.Boolean)
+    deleted: bool | sqlalchemy.Column = sqlalchemy.Column(sqlalchemy.Boolean, default=False)
     start_date: datetime.date | sqlalchemy.Column = db.Column(Date())
     repetitions: list | sqlalchemy.Column = sqlalchemy.Column(String(32))
 
