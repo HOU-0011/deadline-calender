@@ -38,7 +38,7 @@ def get_task(name: str):
 def delete_task(task_id: int):
     task: Task = db.session.get(task_id)
     if task is None:
-        return create_result(error=True,message="タスクが存在しません")
+        return create_result(error=True, message="タスクが存在しません")
     task.deleted = True
     db.session.commit()
 
@@ -64,6 +64,17 @@ def get_off():
     for day_off in db.session.execute(select(DayOff).limit(20)).scalars():
         result.append(day_off.to_dict())
     return create_result(result)
+
+
+@app.route("/api/day-off/<int:id>", methods=["DELETE"])
+def delete_day_off(off_id: int):
+    day_off: DayOff = db.session.get(off_id)
+    if day_off is None:
+        return create_result(error=True, message="休日が登録されていません")
+    day_off.deleted = True
+    db.session.commit()
+
+    return create_result()
 
 
 @app.route("/")
