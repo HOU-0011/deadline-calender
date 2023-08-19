@@ -1,6 +1,7 @@
 import json
 
 from flask import request
+from sqlalchemy import select
 
 from dedline import app, db
 from dedline.model import Task, DayOff
@@ -31,6 +32,11 @@ def get_task(name: str):
     for task in db.session.query(Task).filter(Task.title.like(f"%{name}%")).limit(20):
         result.append(task.to_dict())
     return create_result(result)
+
+
+@app.route("/api/task/<int:id>", methods=["DELETE"])
+def delete_task(id: int):
+    task: Task = db.session.get(id)
 
 
 @app.route("/api/day-off", methods=["POST"])
