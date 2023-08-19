@@ -35,8 +35,14 @@ def get_task(name: str):
 
 
 @app.route("/api/task/<int:id>", methods=["DELETE"])
-def delete_task(id: int):
-    task: Task = db.session.get(id)
+def delete_task(task_id: int):
+    task: Task = db.session.get(task_id)
+    if task is None:
+        return create_result(error=True,message="タスクが存在しません")
+    task.deleted = True
+    db.session.commit()
+
+    return create_result()
 
 
 @app.route("/api/day-off", methods=["POST"])
