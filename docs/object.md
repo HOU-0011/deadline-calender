@@ -27,7 +27,7 @@
 ```json
 {
   "id": 10000,
-  "start-date": "2023/12/31",
+  "start_date": "2023/12/31",
   "repetition": [
     "月",
     "火"

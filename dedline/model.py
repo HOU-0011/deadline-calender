@@ -43,3 +43,9 @@ class Content(BaseModel, db.Model):
 
     def to_dict(self) -> dict[str, int | str]:
         return {"id": self.id, "text": self.text}
+
+
+class DayOff(BaseModel, db.Model):
+    id: int | None = db.Column(Integer, primary_key=True)
+    start_date: datetime.date = db.Column(Date())
+    repetition: list = db.Column()
