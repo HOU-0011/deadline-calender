@@ -1,17 +1,19 @@
+// noinspection JSUnusedGlobalSymbols
+
 import {createURL, getDefault, getValue} from "../util/util";
-import {UrlString} from "../json/theme";
+import {UrlString} from "../service/types";
 import {useEffect, useState} from "react";
-import {debug} from "../bundle";
+
 
 export class JsonError extends Error {
-    url: URL
+    url: URL | undefined
     searchParams: URLSearchParams | undefined
     init: RequestInit | undefined
     response: Response | undefined
     reason: any | undefined
 
     constructor(
-        url: URL,
+        url: URL | undefined,
         searchParams: URLSearchParams | undefined,
         init: RequestInit | undefined,
         response: Response | undefined,
@@ -30,15 +32,15 @@ export async function fetchRest<T = any>(
     url: URL | UrlString,
     searchParams?: URLSearchParams | undefined,
     init?: RequestInit | undefined
-): Promise<Response> {
+): Promise<Response | undefined> {
     const urlObj = createURL(url)
     if (urlObj == undefined) {
         console.error("url is not valid")
-        return null
+        return undefined
     }
     const currentUrl = createURL(window.location.href)
 
-    if (urlObj.host == currentUrl.host) {
+    if (currentUrl != undefined && urlObj.host == currentUrl.host) {
         urlObj.protocol = currentUrl.protocol
     }
 
@@ -47,9 +49,6 @@ export async function fetchRest<T = any>(
             urlObj.searchParams.append(key, value)
         })
     }
-
-    if (debug) console.debug(urlObj)
-
 
     const initObj = getDefault(init, {})
     initObj.headers = getDefault(initObj.headers, {"Content-Type": "application/json"})
@@ -64,6 +63,9 @@ export async function fetchJson<T = any>(
 ): Promise<T> {
     const res = await fetchRest(url, searchParams, init)
 
+    if (res == undefined) {
+        throw new JsonError(createURL(url), searchParams, init, res, undefined)
+    }
     if (!res.ok) {
         console.error(res.status)
         console.error(res.statusText)

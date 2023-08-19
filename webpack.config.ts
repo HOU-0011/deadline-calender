@@ -2,6 +2,7 @@ import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
 import WebpackRemoveEmptyScriptsPlugin from "webpack-remove-empty-scripts";
 import * as path from "path";
+import {EmotionJSX} from "@emotion/react/types/jsx-namespace";
 
 module.exports = {
     // 入力ファイル設定
@@ -17,7 +18,9 @@ module.exports = {
             {
                 // ts-loaderの設定
                 test: /\.(ts|tsx)?$/,
-                use: "ts-loader",
+                use:  [
+                    {loader: 'ts-loader'}
+                ],
                 exclude: /node_modules/
             },
             {
@@ -40,13 +43,13 @@ module.exports = {
 
     // モジュール設定
     output: {
-        path: __dirname,
-        filename: './public/built/[name].js'
+        path: path.join(__dirname, 'public'),
+        filename: './built/[name].js',
     },
 
     plugins: [
         new MiniCssExtractPlugin({
-            filename: './public/built/[name].css'
+            filename: './built/[name].css'
         }),
         new WebpackRemoveEmptyScriptsPlugin({}),
     ],
@@ -65,6 +68,6 @@ module.exports = {
                 target: 'http://127.0.0.1:5000',
                 pathRewrite: {'/api': ''},
             }
-        }
+        },
     },
 };
