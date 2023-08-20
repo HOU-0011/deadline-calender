@@ -1,31 +1,51 @@
-import ReactDOM from "react-dom";
 import {BrowserRouter} from "react-router-dom";
-import {ThemeProvider} from "./hooks/theme/themeHook";
-import {Header} from "./page-component/root/header";
+import {ThemeProvider, useTheme} from "./hooks/theme/themeHook";
+import {Left} from "./page-component/root/left";
 import {Contents} from "./page-component/root/contents";
 import {Footer} from "./page-component/root/footer";
+import {createRoot} from "react-dom/client";
 
 
 export const siteName = "deadline calender"
 export const orgName = "HOU_0011"
 
 function Bundle() {
+  const theme = useTheme()
+
   return <BrowserRouter>
     <ThemeProvider css={{
       display: "flex",
-      flexDirection: "column"
+      flexDirection: "column",
+      height: "100vh",
     }}>
-      <Header css={{
-        flex: "none"
-      }}/>
-      <Contents css={{
-        flex: "auto"
-      }}/>
+      <div css={{
+        flex: "auto",
+        display: "flex",
+        justifyContent: "center",
+      }}>
+        <Left css={{
+          borderLeft: "1px",
+          borderStyle: "solid",
+          borderColor: theme.accent,
+          flex: "none"
+        }}/>
+        <Contents css={{
+          borderRight: "1px",
+          borderLeft: "1px",
+          borderStyle: "solid",
+          borderColor: theme.accent,
+          flex: "none"
+        }}/>
+      </div>
       <Footer css={{
-        flex: "none"
+        flex: "none",
       }}/>
     </ThemeProvider>
   </BrowserRouter>
 }
 
-ReactDOM.render(<Bundle/>, document.getElementById("react"))
+const element = document.getElementById("react")
+if (element != undefined) {
+  createRoot(element).render(<Bundle/>)
+}
+

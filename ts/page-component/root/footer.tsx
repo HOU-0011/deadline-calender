@@ -9,21 +9,19 @@ export function Footer(props: FooterProp) {
   const theme = useTheme()
   const year = new Date().getFullYear().toString()
 
-  return <div
-    {...props}
-    css={{
-      paddingTop: "3px",
-      paddingLeft: "25px",
-      backgroundColor: theme.main,
-      height: "30px",
-    }}
-  >
+  return <footer {...props} css={{
+    height: "18px",
+    borderTop: "1px",
+    borderStyle: "solid",
+    borderColor: theme.accent,
+  }}>
     <p css={{
       position: "relative",
-      textAlign: "center"
+      textAlign: "center",
+      fontSize: "0.8rem"
     }}>
       copyright &copy; {year} {orgName}. All rights reserved.
     </p>
-  </div>
+  </footer>
 
 }
