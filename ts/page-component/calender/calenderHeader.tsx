@@ -12,18 +12,20 @@ export function CalenderHeader(props: DayHeaderProp) {
   const {date, setDate, ...divProps} = props
   const buttonStyle = css`
     ${textStyle};
-    border-radius: 100%;
     text-align: center;
-    height: 35px;
-    width: 35px;
-    font-weight: bold;
-    color: ${theme.accent};
     cursor: pointer;
-    margin-left: 10px;
 
     &:hover {
       border-color: ${theme.base2};
     }
+  `
+  const circleButtonStyle = css`
+    ${buttonStyle};
+    border-radius: 100%;
+    height: 35px;
+    width: 35px;
+    color: ${theme.accent};
+    font-weight: bold;
   `
 
   return <div {...divProps} css={{
@@ -34,14 +36,26 @@ export function CalenderHeader(props: DayHeaderProp) {
     paddingTop: "5px",
     borderColor: theme.accent,
   }}>
-    <div css={buttonStyle} onClick={() => {
+    <div css={css`
+      ${buttonStyle};
+      margin-left: 15px;
+    `} onClick={() => {
+      setDate(new Date())
+    }}>
+      <p>今日</p>
+    </div>
+
+    <div css={css`
+      ${circleButtonStyle};
+      margin-left: 20px;
+    `} onClick={() => {
       const cloneDate = new Date(date.getTime())
       cloneDate.setDate(date.getDate() - 1)
       setDate(cloneDate)
     }}>&lt;</div>
 
     <div css={css`
-      ${buttonStyle};
+      ${circleButtonStyle};
     `} onClick={() => {
       const cloneDate = new Date(date.getTime())
       cloneDate.setDate(date.getDate() + 1)
