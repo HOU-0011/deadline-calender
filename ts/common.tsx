@@ -1,6 +1,6 @@
 import {BrowserRouter} from "react-router-dom";
 import {ThemeProvider, useTheme} from "./hooks/theme/themeHook";
-import {Left} from "./page-component/root/left";
+import {Header} from "./page-component/root/header";
 import {Contents} from "./page-component/root/contents";
 import {Footer} from "./page-component/root/footer";
 import {createRoot} from "react-dom/client";
@@ -23,7 +23,7 @@ function Bundle() {
         display: "flex",
         justifyContent: "center",
       }}>
-        <Left css={{
+        <Header css={{
           borderLeft: "1px",
           borderStyle: "solid",
           borderColor: theme.accent,

@@ -1,6 +1,6 @@
 import {Route, Routes} from "react-router-dom";
 import React, {HtmlHTMLAttributes} from "react";
-import {CalenderPage} from "../calender/calender";
+import {TasksPage} from "../tasks/tasksPage";
 
 interface ContentsProp extends HtmlHTMLAttributes<HTMLDivElement> {
 }
@@ -11,7 +11,7 @@ export function Contents(props: ContentsProp) {
     height: "100%",
   }}>
     <Routes>
-      <Route path={"/*"} element={<CalenderPage/>}/>
+      <Route path={"/*"} element={<TasksPage/>}/>
     </Routes>
   </div>
 }

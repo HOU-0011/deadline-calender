@@ -7,7 +7,7 @@ interface DayHeaderProp extends HtmlHTMLAttributes<HTMLDivElement> {
   setDate: (date: Date) => void
 }
 
-export function CalenderHeader(props: DayHeaderProp) {
+export function TasksHeader(props: DayHeaderProp) {
   const theme = useTheme()
   const {date, setDate, ...divProps} = props
   const buttonStyle = css`

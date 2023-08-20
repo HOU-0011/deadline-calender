@@ -5,10 +5,10 @@ import {Title} from "../../component/title";
 interface HeaderProp extends HtmlHTMLAttributes<HTMLDivElement> {
 }
 
-export function Left(props: HeaderProp) {
+export function Header(props: HeaderProp) {
   const theme = useTheme()
 
-  return <div
+  return <header
     {...props}
     css={{
       width: "300px",
@@ -19,6 +19,6 @@ export function Left(props: HeaderProp) {
       top: "5px",
       position: "relative",
     }}/>
-  </div>
+  </header>
 
 }
