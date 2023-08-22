@@ -4,7 +4,7 @@ export interface ThemeJson {
     main: string
     base: string
     base2: string
-    base3: string
+    accent: string
     plain: string
     textAccent: string
     textBase: string
@@ -15,8 +15,8 @@ export interface ThemeJson {
 export function initTheme(): ThemeJson {
     return {
         base: "#f5f5f5",
-        base2: "#dcdcdc",
-        base3: "#999",
+        base2: "#eee",
+        accent: "#999",
         main: "rgba(0,163,129,0.53)",
         plain: "",
         textAccent: "#d2cf1e",

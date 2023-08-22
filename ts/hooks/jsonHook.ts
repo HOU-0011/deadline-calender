@@ -91,7 +91,7 @@ export function useJson<T = any>(
     ) => Promise<T>,
     defaultValue: T | (() => T),
     deps: any[],
-    err: ((info: JsonError) => T | undefined),
+    err: ((info: JsonError) => void),
 ): T {
     const [restObj, setObj] = useState<T>()
 

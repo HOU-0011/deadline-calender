@@ -1,3 +1,4 @@
+import datetime
 import json
 
 from flask import request
@@ -5,6 +6,7 @@ from sqlalchemy import select
 
 from dedline import app, db
 from dedline.model import Task, DayOff
+from dedline.task_spliter import get_tasks
 from dedline.util import create_result
 
 
@@ -22,7 +24,7 @@ def post_task():
 
 
 @app.route("/api/task", methods=["GET"])
-def get_task(name: str):
+def get_task_list(name: str):
     result = list()
 
     name = request.args.get("name")
@@ -43,6 +45,11 @@ def delete_task(task_id: int):
     db.session.commit()
 
     return create_result()
+
+
+@app.route("/api/task/<int:year>/<int:month>/<int:date>", methods=["DELETE"])
+def get_task(year: int, month: int, date: int):
+    return create_result(get_tasks(datetime.date(year, month, date)))
 
 
 @app.route("/api/day-off", methods=["POST"])

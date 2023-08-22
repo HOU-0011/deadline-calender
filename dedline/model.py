@@ -12,18 +12,20 @@ class BaseModel:
 
 class Task(BaseModel, db.Model):
     id: int | sqlalchemy.Column = sqlalchemy.Column(Integer, primary_key=True)
-    deleted: bool | sqlalchemy.Column = sqlalchemy.Column(sqlalchemy.Boolean, default=False)
-    day_limit: datetime.date | sqlalchemy.Column = sqlalchemy.Column(Date())
-    period: int | sqlalchemy.Column = sqlalchemy.Column(Integer())
-    title: str | sqlalchemy.Column = sqlalchemy.Column(String(31))
-    contents: str | sqlalchemy.Column = sqlalchemy.Column(String(255))
+    deleted: bool | sqlalchemy.Column = sqlalchemy.Column(sqlalchemy.Boolean, default=False, nullable=False)
+    day_deadline: datetime.date | sqlalchemy.Column = sqlalchemy.Column(Date(), nullable=False)
+    end_date: datetime.date | sqlalchemy.Column = sqlalchemy.Column(Date(), nullable=True)
+    period: int | sqlalchemy.Column = sqlalchemy.Column(Integer(), nullable=False)
+    title: str | sqlalchemy.Column = sqlalchemy.Column(String(31), nullable=False)
+    contents: str | sqlalchemy.Column = sqlalchemy.Column(String(255), nullable=False)
 
     def __init__(self, data: dict = None):
         if data is None:
             return
         self.id = data["id"]
         self.deleted = data["deleted"]
-        self.day_limit = datetime.datetime.strptime(data["day_limit"], "%Y/%m/%d").date()
+        self.day_deadline = datetime.datetime.strptime(data["day_limit"], "%Y/%m/%d").date()
+        self.end_date = datetime.datetime.strptime(data["end_date"], "%Y/%m/%d").date()
         self.period = data["period"]
         self.title = data["title"]
         self.contents = data["contents"]
@@ -32,11 +34,13 @@ class Task(BaseModel, db.Model):
         return {
             "id": self.id,
             "deleted": self.deleted,
-            "day_limit": self.day_limit.strftime("%Y/%m/%d"),
+            "day_limit": self.day_deadline.strftime("%Y/%m/%d"),
+            "end_date": self.end_date.strftime("%Y/%m/%d"),
             "period": self.period,
             "title": self.title,
             "contents": self.contents
         }
+
 
 
 class DayOff(BaseModel, db.Model):

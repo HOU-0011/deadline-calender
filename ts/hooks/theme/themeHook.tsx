@@ -1,5 +1,6 @@
 import React, {Context, HtmlHTMLAttributes, useContext, useEffect, useState} from "react";
 import {initTheme, ThemeJson} from "./themeJson";
+import {Global} from "@emotion/react";
 
 let ThemeContext: Context<ThemeJson> = React.createContext(initTheme())
 let themeSetter: (theme: ThemeJson) => void = () => {
@@ -34,14 +35,27 @@ export function ThemeProvider(props: ThemeProviderProp) {
   }, [theme])
 
   return <ThemeContext.Provider value={nonNullTheme}>
-    <div
-      {...props}
-      css={{
-      color: nonNullTheme.textBase,
+    <Global styles={{
+      "*": {
+        margin: 0,
+        padding: 0,
+        border: 0,
+      },
+      a: {
+        color: "unset",
+        textDecoration: "unset"
+      },
+    }}/>
+
+
+    <div{...props} css={{
       backgroundColor: nonNullTheme.base,
       fontFamily: font,
-      minHeight: "100vh"
-    }}/>
+      minHeight: "100vh",
+      color: nonNullTheme.textBase,
+    }}>
+      {props.children}
+    </div>
   </ThemeContext.Provider>
 }
 
