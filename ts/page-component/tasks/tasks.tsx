@@ -1,15 +1,20 @@
-import React, {HtmlHTMLAttributes, useState} from "react";
-import {useTheme} from "../../hooks/theme/themeHook";
-import {TasksHeader} from "./tasksHeader";
+import React, {HtmlHTMLAttributes} from "react";
+import {css} from "@emotion/react";
+import {useJson} from "../../hooks/jsonHook";
 
 interface TasksProp extends HtmlHTMLAttributes<HTMLDivElement> {
+  date: Date
 }
 
 export function Tasks(props: TasksProp) {
-  const [date,setDate] = useState(new Date())
+  const {date, ...divProps} = props
 
-  return <div {...props} css={{
-  }}>
-    <TasksHeader date={date} setDate={setDate}/>
+  const result = useJson((fetch) => {
+    return fetch("/api/task/")
+  }, undefined, [], (error) => {
+  })
+
+  return <div {...divProps} css={css`
+  `}>
   </div>
 }
