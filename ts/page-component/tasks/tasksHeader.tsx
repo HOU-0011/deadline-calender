@@ -1,6 +1,7 @@
 import React, {HtmlHTMLAttributes} from "react";
 import {css} from "@emotion/react";
 import {useTheme} from "../../hooks/theme/themeHook";
+import {Button} from "../../component/button";
 
 interface DayHeaderProp extends HtmlHTMLAttributes<HTMLDivElement> {
   date: Date
@@ -10,22 +11,8 @@ interface DayHeaderProp extends HtmlHTMLAttributes<HTMLDivElement> {
 export function TasksHeader(props: DayHeaderProp) {
   const theme = useTheme()
   const {date, setDate, ...divProps} = props
-  const buttonStyle = css`
-    ${textStyle};
-    text-align: center;
-    cursor: pointer;
-
-    &:hover {
-      border-color: ${theme.base2};
-    }
-  `
-  const circleButtonStyle = css`
-    ${buttonStyle};
-    border-radius: 100%;
-    height: 35px;
-    width: 35px;
-    color: ${theme.accent};
-    font-weight: bold;
+  const style = css`
+    font-size: 1.5rem;
   `
 
   return <div {...divProps} css={{
@@ -36,42 +23,56 @@ export function TasksHeader(props: DayHeaderProp) {
     paddingTop: "5px",
     borderColor: theme.accent,
   }}>
-    <div css={css`
-      ${buttonStyle};
+    <Button css={css`
+      ${style};
       margin-left: 15px;
+
     `} onClick={() => {
       setDate(new Date())
+
     }}>
       <p>今日</p>
-    </div>
 
-    <div css={css`
-      ${circleButtonStyle};
-      margin-left: 20px;
-    `} onClick={() => {
+    </Button>
+
+
+    <Button css={css`
+      ${style};
+      margin-left: 25px;
+      color: ${theme.accent2};
+      font-weight: bold;
+
+    `} backgroundColor={"unset"} onClick={() => {
       const cloneDate = new Date(date.getTime())
       cloneDate.setDate(date.getDate() - 1)
       setDate(cloneDate)
-    }}>&lt;</div>
 
-    <div css={css`
-      ${circleButtonStyle};
-    `} onClick={() => {
+    }}>&lt;</Button>
+
+
+    <Button css={css`
+      ${style};
+      margin-left: 10px;
+      color: ${theme.accent2};
+      font-weight: bold;
+
+    `} backgroundColor={"unset"} onClick={() => {
       const cloneDate = new Date(date.getTime())
       cloneDate.setDate(date.getDate() + 1)
       setDate(cloneDate)
-    }}>&gt;</div>
+
+    }}>&gt;</Button>
+
 
     <div css={css`
-      ${textStyle};
-      margin-left: 50px;
+      ${style};
+      margin-left: 30px;
+
     `}>
       <p>{date.getFullYear()}年{date.getMonth() + 1}月{date.getDate()}日</p>
+
     </div>
+
+
   </div>
 }
-
-const textStyle = css`
-  font-size: 1.5rem;
-  margin-left: 10px;
-`

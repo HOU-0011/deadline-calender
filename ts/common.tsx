@@ -1,6 +1,6 @@
 import {BrowserRouter} from "react-router-dom";
 import {ThemeProvider, useTheme} from "./hooks/theme/themeHook";
-import {Header} from "./page-component/root/header";
+import {Header} from "./page-component/header/header";
 import {Contents} from "./page-component/root/contents";
 import {Footer} from "./page-component/root/footer";
 import {createRoot} from "react-dom/client";
