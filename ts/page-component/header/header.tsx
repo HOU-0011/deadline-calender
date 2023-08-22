@@ -32,7 +32,8 @@ export function Header(props: HeaderProp) {
     `}/>
 
     <Button css={css`
-      ${buttonStyle}
+      ${buttonStyle};
+      margin-top: 50px;
 
     `} backgroundColor={theme.main}>
       タスクの登録
@@ -41,7 +42,6 @@ export function Header(props: HeaderProp) {
 
     <Button css={css`
       ${buttonStyle};
-      margin-top: 50px;
       
     `}>
       休日の登録

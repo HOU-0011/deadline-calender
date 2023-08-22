@@ -24,8 +24,7 @@ export function initTheme(): ThemeJson {
         textAccent: "#d2cf1e",
         textBase: "#4b4b4b",
         fonts: [
-            {name: "jetbrains", url: "/font/JetBrainsMono-2.242/fonts/webfonts/JetBrainsMono-Light.woff2"},
-            {name: "hannari", url: "/font/hannari/HannariMincho-Regular.otf"},
+            {name: "noto-sans", url: "/font/Noto_Sans_JP/static/NotoSansJP-Light.ttf"},
         ],
     }
 }

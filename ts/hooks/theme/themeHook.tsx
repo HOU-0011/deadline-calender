@@ -49,16 +49,16 @@ export function ThemeProvider(props: ThemeProviderProp) {
 
       button {
         background-color: unset;
+        font-family: ${font};
       }
     `}/>
 
 
-    <div{...props} css={{
-      backgroundColor: nonNullTheme.base,
-      fontFamily: font,
-      minHeight: "100vh",
-      color: nonNullTheme.textBase,
-    }}>
+    <div {...props} css={css`
+      background-color: ${nonNullTheme.base};
+      font-family:  ${font};
+      color: ${nonNullTheme.textBase};
+    `}>
       {props.children}
     </div>
   </ThemeContext.Provider>

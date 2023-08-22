@@ -37,6 +37,8 @@ function Bundle() {
           flex: "none"
         }}/>
       </div>
+
+
       <Footer css={{
         flex: "none",
       }}/>
