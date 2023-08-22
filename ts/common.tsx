@@ -6,7 +6,7 @@ import {Footer} from "./page-component/root/footer";
 import {createRoot} from "react-dom/client";
 
 
-export const siteName = "deadline calender"
+export const siteName = "Tasdo"
 export const orgName = "HOU_0011"
 
 function Bundle() {
