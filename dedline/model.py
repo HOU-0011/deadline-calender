@@ -24,8 +24,8 @@ class Task(BaseModel, db.Model):
             return
         self.id = data["id"]
         self.deleted = data["deleted"]
-        self.day_deadline = datetime.datetime.strptime(data["day_limit"], "%Y/%m/%d").date()
-        self.end_date = datetime.datetime.strptime(data["end_date"], "%Y/%m/%d").date()
+        self.day_deadline = datetime.datetime.strptime(data["day_limit"], "%Y-%m-%d").date()
+        self.end_date = datetime.datetime.strptime(data["end_date"], "%Y-%m-%d").date()
         self.period = data["period"]
         self.title = data["title"]
         self.contents = data["contents"]
@@ -34,13 +34,12 @@ class Task(BaseModel, db.Model):
         return {
             "id": self.id,
             "deleted": self.deleted,
-            "day_limit": self.day_deadline.strftime("%Y/%m/%d"),
-            "end_date": self.end_date.strftime("%Y/%m/%d"),
+            "day_limit": self.day_deadline.strftime("%Y-%m-%d"),
+            "end_date": self.end_date.strftime("%Y-%m-%d"),
             "period": self.period,
             "title": self.title,
             "contents": self.contents
         }
-
 
 
 class DayOff(BaseModel, db.Model):
@@ -54,7 +53,7 @@ class DayOff(BaseModel, db.Model):
             return
         self.id = data["id"]
         self.deleted = data["deleted"]
-        self.start_date = datetime.datetime.strptime(data["start_date"], "%Y/%m/%d").date()
+        self.start_date = datetime.datetime.strptime(data["start_date"], "%Y-%m-%d").date()
         self.repetitions = str(data["repetitions"]).split(",")
 
     def to_dict(self) -> dict:
@@ -67,6 +66,6 @@ class DayOff(BaseModel, db.Model):
         return {
             "id": self.id,
             "deleted": self.deleted,
-            "start_date": self.start_date.strftime("%Y/%m/%d"),
+            "start_date": self.start_date.strftime("%Y-%m-%d"),
             "repetitions": repetitions_str,
         }

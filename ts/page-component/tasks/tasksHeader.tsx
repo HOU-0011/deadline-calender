@@ -15,17 +15,17 @@ export function TasksHeader(props: DayHeaderProp) {
     font-size: 1.5rem;
   `
 
-  return <div {...divProps} css={{
-    borderBottom: "1px",
-    height: "40px",
-    borderStyle: "solid",
-    display: "flex",
-    paddingTop: "5px",
-    borderColor: theme.accent,
-  }}>
+  return <div {...divProps} css={css`
+    border-bottom: 1px;
+    height: 40px;
+    border-style: solid;
+    display: flex;
+    padding-top: 5px;
+    border-color: ${theme.accent};
+  `}>
     <Button css={css`
       ${style};
-      margin-left: 15px;
+      margin-left: 25px;
 
     `} onClick={() => {
       setDate(new Date())
@@ -52,7 +52,7 @@ export function TasksHeader(props: DayHeaderProp) {
 
     <Button css={css`
       ${style};
-      margin-left: 10px;
+      margin-left: 5px;
       color: ${theme.accent2};
       font-weight: bold;
 

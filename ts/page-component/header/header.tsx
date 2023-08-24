@@ -1,8 +1,9 @@
-import React, {HtmlHTMLAttributes} from "react";
+import React, {HtmlHTMLAttributes, useState} from "react";
 import {useTheme} from "../../hooks/theme/themeHook";
 import {Title} from "../../component/title";
 import {css} from "@emotion/react";
 import {Button} from "../../component/button";
+import {RegisterTaskModal} from "./registerTaskModal";
 
 interface HeaderProp extends HtmlHTMLAttributes<HTMLDivElement> {
 }
@@ -14,15 +15,14 @@ export function Header(props: HeaderProp) {
     font-size: 1.3rem;
     margin-top: 10px;
   `
+  const [registerTask, setRegisterTask] = useState(false)
 
 
-  return <header
-    {...props}
-    css={css`
-      width: 200px;
-      padding-left: 8px;
-      padding-right: 8px;
-    `}
+  return <header{...props} css={css`
+    width: 200px;
+    padding-left: 8px;
+    padding-right: 8px;
+  `}
   >
     <Title css={css`
       top: 5px;
@@ -35,19 +35,25 @@ export function Header(props: HeaderProp) {
       ${buttonStyle};
       margin-top: 50px;
 
-    `} backgroundColor={theme.main}>
+    `} backgroundColor={theme.main} onClick={() => {
+      setRegisterTask(true)
+
+    }}>
       タスクの登録
 
     </Button>
 
     <Button css={css`
       ${buttonStyle};
-      
+
     `}>
       休日の登録
 
     </Button>
 
+    <RegisterTaskModal isOpen={registerTask} onRequestClose={() => {
+      setRegisterTask(false)
+    }} close={() => setRegisterTask(false)}/>
   </header>
 
 }

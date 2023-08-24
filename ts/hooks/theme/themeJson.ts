@@ -15,7 +15,7 @@ export interface ThemeJson {
 
 export function initTheme(): ThemeJson {
     return {
-        base: "#f5f5f5",
+        base: "#f7f7f7",
         base2: "#eee",
         accent: "#ddd",
         accent2: "#999",
