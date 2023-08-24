@@ -20,6 +20,9 @@ class Task(BaseModel, db.Model):
     contents: str | sqlalchemy.Column = sqlalchemy.Column(String(255), nullable=False)
 
     def __init__(self, data: dict = None):
+        self.apply(data)
+
+    def apply(self, data: dict | None):
         if data is None:
             return
         deadline_day = data.get("deadline_date")

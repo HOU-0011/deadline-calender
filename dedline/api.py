@@ -20,7 +20,7 @@ def post_task():
     if task.title is None or task.title == "":
         return create_result(None, True, "タイトルがありません")
     if task.deadline_date is None or task.deadline_date == "":
-        return create_result(None, True, "タイトルがありません")
+        return create_result(None, True, "期限がありません")
 
     db.session.add(task)
     db.session.commit()
@@ -41,6 +41,32 @@ def get_task_list(name: str):
     return create_result(result)
 
 
+@app.route("/api/task", methods=["PUT"])
+def put_task():
+    data: str = request.data.decode("utf-8")
+    data: dict = json.loads(data)
+
+    task_id = data.get("id")
+
+    if task_id is None:
+        return create_result(None, True, "idが存在しません")
+
+    task = db.session.query(Task).filter(Task.id == task_id).one()
+
+    if task is None:
+        return create_result(error=True, message="タスクが存在しません")
+    task.apply(data)
+
+    if task.title is None or task.title == "":
+        return create_result(None, True, "タイトルがありません")
+    if task.deadline_date is None or task.deadline_date == "":
+        return create_result(None, True, "期限がありません")
+
+    db.session.commit()
+
+    return create_result()
+
+
 @app.route("/api/task/<int:id>", methods=["DELETE"])
 def delete_task(task_id: int):
     task: Task = db.session.get(task_id)
@@ -53,7 +79,7 @@ def delete_task(task_id: int):
 
 
 @app.route("/api/task/<int:year>/<int:month>/<int:date>", methods=["GET"])
-def get_task(year: int, month: int, date: int):
+def get_tasks(year: int, month: int, date: int):
     day_tasks = get_day_tasks(datetime.date(year, month, date))
     result = list[dict]()
 

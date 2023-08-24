@@ -102,7 +102,7 @@ class TaskStore:
                     result.append(DayTask(rest, task_entry.task))
 
                 date += 1
-            if day == date:
+            if period != 0 and day == date:
                 result.append(DayTask(period, task_entry.task))
             remainder = period
 

@@ -3,6 +3,9 @@ import {css} from "@emotion/react";
 import {Error} from "../../component/error";
 import {useTheme} from "../../hooks/theme/themeHook";
 import {dayTasksState} from "../../hooks/dayTasksState";
+import {Button} from "../../component/button";
+import {taskManager} from "../../service/taskManager";
+import {formatDate} from "../../service/objects";
 
 interface TasksProp extends HtmlHTMLAttributes<HTMLDivElement> {
 }
@@ -23,13 +26,37 @@ export function Tasks(props: TasksProp) {
       background-color: ${theme.accent};
       border-radius: 5px;
     `}>
-      <h2 css={css`
-        border-bottom: 1px solid ${theme.accent2};
-        color: ${theme.textAccent};
-        width: fit-content;
-        padding-left: 10px;
-        padding-right: 10px;
-      `}>{task.title}</h2>
+      <div css={css`
+        display: flex;
+        justify-content: space-between;
+      `}>
+        <h2 css={css`
+          border-bottom: 1px solid ${theme.accent2};
+          color: ${theme.textAccent};
+          width: fit-content;
+          padding-left: 10px;
+          padding-right: 10px;
+        `}>{task.title}</h2>
+
+        {task.end_date == undefined ? <Button css={css`
+          margin-top: 10px;
+          font-size: 1.1rem;
+          background-color: ${theme.main};
+        `} onClick={() => {
+          task.end_date = formatDate(new Date())
+          taskManager.putTask(task, (error: string) => {
+            console.error(error)
+          })
+        }}>
+          終了
+        </Button> : <p css={css`
+          margin-top: 10px;
+          font-size: 1.1rem;
+        `}>
+          終了済み
+        </p>}
+
+      </div>
 
       <p css={css`
       `}>締め切り: {task.deadline_date.replace("-", "/")} |
