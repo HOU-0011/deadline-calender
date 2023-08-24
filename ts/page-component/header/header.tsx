@@ -4,6 +4,7 @@ import {Title} from "../../component/title";
 import {css} from "@emotion/react";
 import {Button} from "../../component/button";
 import {RegisterTaskModal} from "./registerTaskModal";
+import {TaskInfo} from "./taskInfo";
 
 interface HeaderProp extends HtmlHTMLAttributes<HTMLDivElement> {
 }
@@ -50,6 +51,14 @@ export function Header(props: HeaderProp) {
       休日の登録
 
     </Button>
+
+
+    <TaskInfo css={css`
+      margin-top: 10px;
+      padding: 10px;
+      border-top: solid 1px ${theme.accent};
+    `}/>
+
 
     <RegisterTaskModal isOpen={registerTask} onRequestClose={() => {
       setRegisterTask(false)

@@ -2,20 +2,19 @@ import React, {HtmlHTMLAttributes} from "react";
 import {css} from "@emotion/react";
 import {useTheme} from "../../hooks/theme/themeHook";
 import {Button} from "../../component/button";
+import {dayTasksState} from "../../hooks/dayTasksState";
 
 interface DayHeaderProp extends HtmlHTMLAttributes<HTMLDivElement> {
-  date: Date
-  setDate: (date: Date) => void
 }
 
 export function TasksHeader(props: DayHeaderProp) {
   const theme = useTheme()
-  const {date, setDate, ...divProps} = props
+  const date = dayTasksState.useDate()
   const style = css`
     font-size: 1.5rem;
   `
 
-  return <div {...divProps} css={css`
+  return <div {...props} css={css`
     border-bottom: 1px;
     height: 40px;
     border-style: solid;
@@ -28,7 +27,7 @@ export function TasksHeader(props: DayHeaderProp) {
       margin-left: 25px;
 
     `} onClick={() => {
-      setDate(new Date())
+      dayTasksState.setDate(new Date())
 
     }}>
       <p>今日</p>
@@ -45,7 +44,7 @@ export function TasksHeader(props: DayHeaderProp) {
     `} backgroundColor={"unset"} onClick={() => {
       const cloneDate = new Date(date.getTime())
       cloneDate.setDate(date.getDate() - 1)
-      setDate(cloneDate)
+      dayTasksState.setDate(cloneDate)
 
     }}>&lt;</Button>
 
@@ -59,7 +58,7 @@ export function TasksHeader(props: DayHeaderProp) {
     `} backgroundColor={"unset"} onClick={() => {
       const cloneDate = new Date(date.getTime())
       cloneDate.setDate(date.getDate() + 1)
-      setDate(cloneDate)
+      dayTasksState.setDate(cloneDate)
 
     }}>&gt;</Button>
 

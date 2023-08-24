@@ -6,7 +6,9 @@ class DayTasksState {
 
   private readonly tasksState = new GlobalState<DayTask[]>([])
   private readonly errState = new GlobalState<string | undefined>(undefined)
+  private readonly dateState = new GlobalState<Date>(new Date())
   private date: Date = new Date()
+
   constructor() {
     this.reload()
   }
@@ -19,10 +21,15 @@ class DayTasksState {
     return this.errState.use()
   }
 
+  useDate() {
+    return this.dateState.use()
+  }
+
   setDate(date: Date) {
     if (this.date == date) return
     this.date = date
     this.reload()
+    this.dateState.set(date)
   }
 
   reload() {

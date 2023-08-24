@@ -5,11 +5,9 @@ import {useTheme} from "../../hooks/theme/themeHook";
 import {dayTasksState} from "../../hooks/dayTasksState";
 
 interface TasksProp extends HtmlHTMLAttributes<HTMLDivElement> {
-  date: Date
 }
 
 export function Tasks(props: TasksProp) {
-  const {date, ...divProps} = props
   const theme = useTheme()
 
   let total_worktime = 0
@@ -49,7 +47,7 @@ export function Tasks(props: TasksProp) {
   })
 
 
-  return <div {...divProps} css={css`
+  return <div {...props} css={css`
     overflow: scroll;
   `}>
     <Error error={dayTasksState.err()}/>
