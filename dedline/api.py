@@ -17,6 +17,11 @@ def post_task():
 
     task: Task = Task(data)
 
+    if task.title is None or task.title == "":
+        return create_result(None, True, "タイトルがありません")
+    if task.deadline_day is None or task.deadline_day == "":
+        return create_result(None, True, "タイトルがありません")
+
     db.session.add(task)
     db.session.commit()
 

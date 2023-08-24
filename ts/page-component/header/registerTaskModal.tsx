@@ -4,9 +4,9 @@ import ReactModal from 'react-modal';
 import {useTheme} from "../../hooks/theme/themeHook";
 import {Button} from "../../component/button";
 import {css} from "@emotion/react";
-import {formatDate, initTask, toDate} from "../../service/objects";
+import {formatDate, initTask, Result, toDate} from "../../service/objects";
 import {DynamicTextarea} from "../../component/dynamicTextarea";
-import {fetchJson} from "../../hooks/jsonHook";
+import {fetchJson, JsonError} from "../../hooks/jsonHook";
 
 interface RegisterTaskModalProp extends ReactModal.Props {
   close: () => void
@@ -22,6 +22,7 @@ export function RegisterTaskModal(props: RegisterTaskModalProp) {
     border-radius: 5px;
     border: 1px solid ${theme.accent2};
   `
+  const [err, setErr] = useState<string>()
 
   return <Modal  {...modalProps} style={{
     content: {
@@ -36,7 +37,7 @@ export function RegisterTaskModal(props: RegisterTaskModalProp) {
     }, overlay: {
       display: "flex", justifyContent: "center",
     }
-  }}>
+  }} ariaHideApp={false}>
 
 
     <div css={css`
@@ -51,6 +52,17 @@ export function RegisterTaskModal(props: RegisterTaskModalProp) {
         font-size: 1.1rem;
       `}>&times;</Button>
     </div>
+
+
+    {err && <div css={css`
+      color: red;
+      background-color: ${theme.accent};
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 5px;
+    `}>
+      {err}
+    </div>}
 
 
     <div css={css`
@@ -156,7 +168,25 @@ export function RegisterTaskModal(props: RegisterTaskModalProp) {
       <Button backgroundColor={theme.main} css={css`
         font-size: 1.1rem;
       `} onClick={() => {
-        fetchJson("", new URLSearchParams(), {method: "POST"})
+        fetchJson<Result<undefined>>("api/task", new URLSearchParams(), {
+          method: "POST",
+          body: JSON.stringify(task),
+        })
+          .catch((reason: JsonError) => {
+            setErr(reason.reason)
+            return undefined
+
+          }).then((result) => {
+          if (result == undefined) return;
+          if (result.error) {
+            setErr(result.message)
+            return
+
+          }
+          close()
+
+        })
+
       }}>登録</Button>
     </div>
   </Modal>

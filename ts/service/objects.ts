@@ -1,5 +1,5 @@
 export interface Task {
-  id: number
+  id: number | undefined
   deleted: boolean
   deadline_date: string
   end_date: string | undefined
@@ -11,7 +11,7 @@ export interface Task {
 export function initTask(task: Task | undefined = undefined): Task {
   const date = new Date()
   let result: Task = {
-    id: -1,
+    id: undefined,
     deleted: false,
     deadline_date: formatDate(date),
     end_date: undefined,
@@ -39,4 +39,10 @@ export function toDate(str: string): Date {
 export function formatDate(date: Date): string {
   return `${(date.getFullYear()).toString().padStart(2, "0")}-` +
     `${(date.getMonth() + 1).toString().padStart(2, "0")}-${(date.getDate()).toString().padStart(2, "0")}`
+}
+
+export interface Result<T> {
+  error: boolean,
+  message: string,
+  result: T,
 }

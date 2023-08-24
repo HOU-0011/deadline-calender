@@ -11,7 +11,7 @@ export function Button(props: ButtonProp) {
   const {backgroundColor, ...buttonProps} = props
   const theme = useTheme()
 
-  return <button {...props} css={css`
+  return <button {...buttonProps} css={css`
     text-align: center;
     height: fit-content;
     cursor: pointer;

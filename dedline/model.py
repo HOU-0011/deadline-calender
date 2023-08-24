@@ -11,10 +11,10 @@ class BaseModel:
 
 
 class Task(BaseModel, db.Model):
-    id: int | sqlalchemy.Column = sqlalchemy.Column(Integer, primary_key=True)
+    id: int | None | sqlalchemy.Column = sqlalchemy.Column(Integer, primary_key=True)
     deleted: bool | sqlalchemy.Column = sqlalchemy.Column(sqlalchemy.Boolean, default=False, nullable=False)
-    day_deadline: datetime.date | sqlalchemy.Column = sqlalchemy.Column(Date(), nullable=False)
-    end_date: datetime.date | sqlalchemy.Column = sqlalchemy.Column(Date(), nullable=True)
+    deadline_day: datetime.date | sqlalchemy.Column = sqlalchemy.Column(Date(), nullable=False)
+    end_date: datetime.date | None | sqlalchemy.Column = sqlalchemy.Column(Date(), nullable=True)
     period: int | sqlalchemy.Column = sqlalchemy.Column(Integer(), nullable=False)
     title: str | sqlalchemy.Column = sqlalchemy.Column(String(31), nullable=False)
     contents: str | sqlalchemy.Column = sqlalchemy.Column(String(255), nullable=False)
@@ -22,19 +22,31 @@ class Task(BaseModel, db.Model):
     def __init__(self, data: dict = None):
         if data is None:
             return
-        self.id = data["id"]
-        self.deleted = data["deleted"]
-        self.day_deadline = datetime.datetime.strptime(data["day_limit"], "%Y-%m-%d").date()
-        self.end_date = datetime.datetime.strptime(data["end_date"], "%Y-%m-%d").date()
-        self.period = data["period"]
-        self.title = data["title"]
-        self.contents = data["contents"]
+        deadline_day = data.get("day_limit")
+        end_date = data.get("end_date")
+
+        self.id = data.get("id")
+        self.deleted = data.get("deleted")
+
+        if deadline_day is None:
+            self.deadline_day = datetime.date.today()
+        else:
+            self.deadline_day = datetime.datetime.strptime(deadline_day, "%Y-%m-%d").date()
+
+        if end_date is None:
+            self.end_date = None
+        else:
+            self.end_date = datetime.datetime.strptime(end_date, "%Y-%m-%d").date()
+
+        self.period = data.get("period")
+        self.title = data.get("title")
+        self.contents = data.get("contents")
 
     def to_dict(self) -> dict:
         return {
             "id": self.id,
             "deleted": self.deleted,
-            "day_limit": self.day_deadline.strftime("%Y-%m-%d"),
+            "day_limit": self.deadline_day.strftime("%Y-%m-%d"),
             "end_date": self.end_date.strftime("%Y-%m-%d"),
             "period": self.period,
             "title": self.title,
@@ -51,10 +63,10 @@ class DayOff(BaseModel, db.Model):
     def __init__(self, data: dict = None):
         if data is None:
             return
-        self.id = data["id"]
-        self.deleted = data["deleted"]
-        self.start_date = datetime.datetime.strptime(data["start_date"], "%Y-%m-%d").date()
-        self.repetitions = str(data["repetitions"]).split(",")
+        self.id = data.get("id")
+        self.deleted = data.get("deleted", False)
+        self.start_date = datetime.datetime.strptime(data.get("start_date", ""), "%Y-%m-%d").date()
+        self.repetitions = str(data.get("repetitions")).split(",")
 
     def to_dict(self) -> dict:
         repetitions_str = ""

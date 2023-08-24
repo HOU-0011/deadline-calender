@@ -41,7 +41,7 @@ class TaskEntry:
         self.period = period
 
     def __lt__(self, other):
-        return self.task.day_deadline < other.task.day_deadline
+        return self.task.deadline_day < other.task.deadline_day
 
 
 class DayTask:
@@ -124,7 +124,7 @@ def get_tasks(date: datetime.date):
     tasks.sort()
 
     for task in tasks:
-        deadline_days = (task.day_deadline - datetime.date.today()).days
+        deadline_days = (task.deadline_day - datetime.date.today()).days
         task_store.append_task(task, deadline_days, task.period, 6)
 
     return task_store.get_tasks((date - datetime.date.today()).days)
