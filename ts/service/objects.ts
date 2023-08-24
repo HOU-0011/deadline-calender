@@ -46,3 +46,16 @@ export interface Result<T> {
   message: string,
   result: T,
 }
+
+export function initResult<T>(result: T, error: boolean = false, message: string = ""): Result<T> {
+  return {
+    error: error,
+    message: message,
+    result: result
+  }
+}
+
+export interface DayTask {
+  "period": number,
+  "task": Task,
+}

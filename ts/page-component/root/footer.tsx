@@ -10,7 +10,7 @@ export function Footer(props: FooterProp) {
   const year = new Date().getFullYear().toString()
 
   return <footer {...props} css={{
-    height: "18px",
+    height: "19px",
     borderTop: "1px",
     borderStyle: "solid",
     borderColor: theme.accent,

@@ -21,7 +21,7 @@ export function initTheme(): ThemeJson {
         accent2: "#999",
         main: "rgba(0,163,129,0.53)",
         plain: "",
-        textAccent: "#d2cf1e",
+        textAccent: "#000",
         textBase: "#4b4b4b",
         fonts: [
             {name: "noto-sans", url: "/font/Noto_Sans_JP/static/NotoSansJP-Light.ttf"},

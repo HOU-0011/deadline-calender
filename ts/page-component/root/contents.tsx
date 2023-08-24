@@ -9,10 +9,11 @@ interface ContentsProp extends HtmlHTMLAttributes<HTMLDivElement> {
 export function Contents(props: ContentsProp) {
   return <div {...props} css={css`
     width: 700px;
-    height: 100%;
   `}>
     <Routes>
-      <Route path={"/*"} element={<TasksPage/>}/>
+      <Route path={"/*"} element={<TasksPage css={css`
+        height: 100%;
+      `}/>}/>
     </Routes>
   </div>
 }

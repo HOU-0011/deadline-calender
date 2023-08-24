@@ -7,6 +7,8 @@ import {css} from "@emotion/react";
 import {formatDate, initTask, Result, toDate} from "../../service/objects";
 import {DynamicTextarea} from "../../component/dynamicTextarea";
 import {fetchJson, JsonError} from "../../hooks/jsonHook";
+import {Error} from "../../component/error";
+import {dayTasksState} from "../../hooks/dayTasksState";
 
 interface RegisterTaskModalProp extends ReactModal.Props {
   close: () => void
@@ -54,15 +56,7 @@ export function RegisterTaskModal(props: RegisterTaskModalProp) {
     </div>
 
 
-    {err && <div css={css`
-      color: red;
-      background-color: ${theme.accent};
-      padding: 10px;
-      margin-top: 10px;
-      border-radius: 5px;
-    `}>
-      {err}
-    </div>}
+    <Error error={err}/>
 
 
     <div css={css`
@@ -143,24 +137,6 @@ export function RegisterTaskModal(props: RegisterTaskModalProp) {
 
 
     <div css={css`
-      margin-top: 20px;
-      font-size: 1.1rem;
-      width: 100%;
-    `}>
-      <p>終了日</p>
-      <input css={css`
-        ${inputStyle};
-        width: 150px;
-        text-align: center;
-      `} type={"date"} defaultValue={formatDate(toDate(task.end_date == undefined ? "" : task.end_date))}
-             onChange={(e) => {
-               const newTask = initTask(task)
-               newTask.end_date = e.target.value == "" ? undefined : e.target.value
-               setTask(newTask)
-             }}/>
-    </div>
-
-    <div css={css`
       display: flex;
       justify-content: right;
       margin-top: 10px;
@@ -184,7 +160,7 @@ export function RegisterTaskModal(props: RegisterTaskModalProp) {
 
           }
           close()
-
+          dayTasksState.reload()
         })
 
       }}>登録</Button>

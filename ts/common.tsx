@@ -4,6 +4,7 @@ import {Header} from "./page-component/header/header";
 import {Contents} from "./page-component/root/contents";
 import {Footer} from "./page-component/root/footer";
 import {createRoot} from "react-dom/client";
+import {css} from "@emotion/react";
 
 
 export const siteName = "Tasdo"
@@ -18,11 +19,12 @@ function Bundle() {
       flexDirection: "column",
       height: "100vh",
     }}>
-      <div css={{
-        flex: "auto",
-        display: "flex",
-        justifyContent: "center",
-      }}>
+      <div css={css`
+        flex: auto;
+        display: flex;
+        justify-content: center;
+        min-height: 0;
+      `}>
         <Header css={{
           borderLeft: "1px",
           borderStyle: "solid",
@@ -34,7 +36,7 @@ function Bundle() {
           borderLeft: "1px",
           borderStyle: "solid",
           borderColor: theme.accent,
-          flex: "none"
+          flex: "none",
         }}/>
       </div>
 

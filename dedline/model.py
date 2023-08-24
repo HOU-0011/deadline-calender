@@ -13,7 +13,7 @@ class BaseModel:
 class Task(BaseModel, db.Model):
     id: int | None | sqlalchemy.Column = sqlalchemy.Column(Integer, primary_key=True)
     deleted: bool | sqlalchemy.Column = sqlalchemy.Column(sqlalchemy.Boolean, default=False, nullable=False)
-    deadline_day: datetime.date | sqlalchemy.Column = sqlalchemy.Column(Date(), nullable=False)
+    deadline_date: datetime.date | sqlalchemy.Column = sqlalchemy.Column(Date(), nullable=False)
     end_date: datetime.date | None | sqlalchemy.Column = sqlalchemy.Column(Date(), nullable=True)
     period: int | sqlalchemy.Column = sqlalchemy.Column(Integer(), nullable=False)
     title: str | sqlalchemy.Column = sqlalchemy.Column(String(31), nullable=False)
@@ -22,16 +22,16 @@ class Task(BaseModel, db.Model):
     def __init__(self, data: dict = None):
         if data is None:
             return
-        deadline_day = data.get("day_limit")
+        deadline_day = data.get("deadline_date")
         end_date = data.get("end_date")
 
         self.id = data.get("id")
         self.deleted = data.get("deleted")
 
         if deadline_day is None:
-            self.deadline_day = datetime.date.today()
+            self.deadline_date = datetime.date.today()
         else:
-            self.deadline_day = datetime.datetime.strptime(deadline_day, "%Y-%m-%d").date()
+            self.deadline_date = datetime.datetime.strptime(deadline_day, "%Y-%m-%d").date()
 
         if end_date is None:
             self.end_date = None
@@ -43,15 +43,23 @@ class Task(BaseModel, db.Model):
         self.contents = data.get("contents")
 
     def to_dict(self) -> dict:
+        if self.end_date is None:
+            end_date = None
+        else:
+            end_date = self.end_date.strftime("%Y-%m-%d")
+
         return {
             "id": self.id,
             "deleted": self.deleted,
-            "day_limit": self.deadline_day.strftime("%Y-%m-%d"),
-            "end_date": self.end_date.strftime("%Y-%m-%d"),
+            "deadline_date": self.deadline_date.strftime("%Y-%m-%d"),
+            "end_date": end_date,
             "period": self.period,
             "title": self.title,
             "contents": self.contents
         }
+
+    def __lt__(self, other):
+        return self.deadline_date < other.deadline_date
 
 
 class DayOff(BaseModel, db.Model):

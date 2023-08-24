@@ -6,7 +6,7 @@ from sqlalchemy import select
 
 from dedline import app, db
 from dedline.model import Task, DayOff
-from dedline.task_spliter import get_tasks
+from dedline.task_spliter import get_day_tasks
 from dedline.util import create_result
 
 
@@ -19,7 +19,7 @@ def post_task():
 
     if task.title is None or task.title == "":
         return create_result(None, True, "タイトルがありません")
-    if task.deadline_day is None or task.deadline_day == "":
+    if task.deadline_date is None or task.deadline_date == "":
         return create_result(None, True, "タイトルがありません")
 
     db.session.add(task)
@@ -52,9 +52,15 @@ def delete_task(task_id: int):
     return create_result()
 
 
-@app.route("/api/task/<int:year>/<int:month>/<int:date>", methods=["DELETE"])
+@app.route("/api/task/<int:year>/<int:month>/<int:date>", methods=["GET"])
 def get_task(year: int, month: int, date: int):
-    return create_result(get_tasks(datetime.date(year, month, date)))
+    day_tasks = get_day_tasks(datetime.date(year, month, date))
+    result = list[dict]()
+
+    for day_task in day_tasks:
+        result.append(day_task.to_dict())
+
+    return create_result(result)
 
 
 @app.route("/api/day-off", methods=["POST"])
