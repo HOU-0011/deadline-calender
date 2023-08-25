@@ -48,12 +48,12 @@ export function Tasks(props: TasksProp) {
             console.error(error)
           })
         }}>
-          終了
+          完了
         </Button> : <p css={css`
           margin-top: 10px;
           font-size: 1.1rem;
         `}>
-          終了済み
+          完了済み
         </p>}
 
       </div>
