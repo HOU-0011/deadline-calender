@@ -51,6 +51,14 @@ export function ThemeProvider(props: ThemeProviderProp) {
         background-color: unset;
         font-family: ${font};
       }
+
+      p {
+        font-family: ${font};
+      }
+
+      h2 {
+        font-family: ${font}
+      }
     `}/>
 
 
