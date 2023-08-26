@@ -16,6 +16,8 @@ export function Tasks(props: TasksProp) {
   let total_worktime = 0
   const tasks = dayTasksState.use().map((value) => {
     const task = value.task
+    const id = task.id
+    if (id == undefined) return undefined
     total_worktime += value.period
 
     return <div key={value.task.id} css={css`
@@ -38,23 +40,42 @@ export function Tasks(props: TasksProp) {
           padding-right: 10px;
         `}>{task.title}</h2>
 
-        {task.end_date == undefined ? <Button css={css`
-          margin-top: 10px;
-          font-size: 1.1rem;
-          background-color: ${theme.main};
-        `} onClick={() => {
-          task.end_date = formatDate(new Date())
-          taskManager.putTask(task, (error: string) => {
-            console.error(error)
-          })
-        }}>
-          完了
-        </Button> : <p css={css`
-          margin-top: 10px;
-          font-size: 1.1rem;
-        `}>
-          完了済み
-        </p>}
+
+        <div>
+          <Button css={css`
+            margin-top: 10px;
+            font-size: 1.1rem;
+            background-color: ${theme.accent2};
+            margin-right: 10px  ;
+          `} onClick={() => {
+            task.end_date = formatDate(new Date())
+            taskManager.deleteTask(id, (error: string) => {
+              console.error(error)
+            })
+          }}>
+            削除
+          </Button>
+
+
+          {task.end_date == undefined ? <Button css={css`
+            margin-top: 10px;
+            font-size: 1.1rem;
+            background-color: ${theme.main};
+          `} onClick={() => {
+            task.end_date = formatDate(new Date())
+            taskManager.putTask(task, (error: string) => {
+              console.error(error)
+            })
+          }}>
+            完了
+          </Button> : <p css={css`
+            margin-top: 10px;
+            font-size: 1.1rem;
+          `}>
+            完了済み
+          </p>}
+        </div>
+
 
       </div>
 
@@ -71,7 +92,7 @@ export function Tasks(props: TasksProp) {
 
       <p>{task.contents}</p>
     </div>
-  })
+  }).filter((value) => {return value != undefined})
 
 
   return <div {...props} css={css`

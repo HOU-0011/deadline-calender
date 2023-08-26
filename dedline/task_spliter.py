@@ -127,7 +127,8 @@ def get_day_tasks(date: datetime.date) -> list[DayTask]:
     tasks: list[Task] = db.session.query(Task).filter(
         and_(
             Task.deadline_date >= datetime.date.today(),
-            or_(Task.end_date.is_(None), Task.end_date >= datetime.date.today())
+            or_(Task.end_date.is_(None), Task.end_date >= datetime.date.today()),
+            Task.deleted == False
         )
     ).all()
     task_store = TaskStore()

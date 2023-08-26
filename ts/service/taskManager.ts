@@ -21,6 +21,25 @@ class TaskManager {
       dayTasksState.reload()
     })
   }
+
+  deleteTask(id: number, setError: (error: string) => void) {
+
+    fetchJson<Result<undefined>>(`api/task/${encodeURIComponent(id)}`, new URLSearchParams(), {
+      method: "DELETE",
+    }).catch((reason: JsonError) => {
+      setError(reason.reason)
+      return undefined
+
+    }).then((result) => {
+      if (result == undefined) return;
+      if (result.error) {
+        setError(result.message)
+        return
+
+      }
+      dayTasksState.reload()
+    })
+  }
 }
 
 export const taskManager = new TaskManager()

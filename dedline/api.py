@@ -67,9 +67,9 @@ def put_task():
     return create_result()
 
 
-@app.route("/api/task/<int:id>", methods=["DELETE"])
+@app.route("/api/task/<int:task_id>", methods=["DELETE"])
 def delete_task(task_id: int):
-    task: Task = db.session.get(task_id)
+    task = db.session.query(Task).filter(Task.id == task_id).one()
     if task is None:
         return create_result(error=True, message="タスクが存在しません")
     task.deleted = True
