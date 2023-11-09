@@ -1,13 +1,36 @@
 import datetime
 import json
 
+import flask_jwt_extended
 from flask import request
+from flask_jwt_extended import create_access_token, get_jwt_identity
 from sqlalchemy import select
 
 from dedline import app, db
 from dedline.model import Task, DayOff
 from dedline.task_spliter import get_day_tasks
 from dedline.util import create_result
+
+if __name__ == "__main__":
+    app.run()
+
+
+@app.route("/login", methods=["POST"])
+def login():
+    username = request.json.get("username", None)
+    password = request.json.get("password", None)
+    if username != "test" or password != "test":
+        return create_result({"msg": "Bad username or password"}), 401
+
+    access_token = flask_jwt_extended.create_access_token(identity=username)
+    return create_result({"access_token": access_token})
+
+
+@app.route("/protected", methods=["GET"])
+@flask_jwt_extended.jwt_required()
+def protected():
+    current_user = flask_jwt_extended.get_jwt_identity()
+    return create_result({"logged_in_as": current_user}), 200
 
 
 @app.route("/api/task", methods=["POST"])
